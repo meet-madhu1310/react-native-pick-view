@@ -8,7 +8,7 @@ class TvAiringToday extends React.Component {
     }
 
     componentDidMount = async() => {
-        const API_KEY = '8367b1854dccedcfc9001204de735470'
+        const API_KEY = 'API_KEY'
         const url = `https://api.themoviedb.org/3/tv/airing_today?api_key=${API_KEY}&language=en`
 
         fetch(url)
