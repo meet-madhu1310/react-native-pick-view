@@ -29,18 +29,26 @@ class NowPlaying extends React.Component {
         </View>
     )
 
+    navToAll = (e) => {
+        try {
+            this.props.navigation.navigate('NowAll')
+        } catch(err) {
+            console.log('err: ', err)
+        }
+    }
+
     render() {
         return(
             <>
                 <View style={styles.textHeaderView}>
                     <Text style={styles.textHeader}>Now Playing</Text>
-                    <Text style={styles.subHeadLine}>See all</Text>
+                    <Text onPress={() => this.navToAll(this.state.results)} style={styles.subHeadLine}>See all</Text>
                 </View>
 
                 <View style={styles.moviesList}>
                     <FlatList
                         horizontal={true}
-                        data={this.state.results}
+                        data={this.state.results.slice(0, 10)}
                         renderItem={this._renderItem}
                         showsHorizontalScrollIndicator={false}
                     />
@@ -98,6 +106,7 @@ const styles = StyleSheet.create({
         fontSize: 15,
         fontWeight: '600',
         paddingTop: 10,
+        paddingBottom: 10,
         justifyContent: 'center'
     }
 })

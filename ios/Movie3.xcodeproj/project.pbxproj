@@ -161,7 +161,6 @@
 				03A744C79F1315C4AF58E3EF /* Pods-Movie3Tests.debug.xcconfig */,
 				F1DC6444CD48EDD2C0757329 /* Pods-Movie3Tests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};

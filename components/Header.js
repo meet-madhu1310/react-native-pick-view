@@ -12,7 +12,7 @@ class Header extends React.Component {
         const API_KEY = '8367b1854dccedcfc9001204de735470'
         const n = Math.floor(Math.random() * 10)
 
-        const url = `https://api.themoviedb.org/3/movie/now_playing?api_key=${API_KEY}&language=en-US&page=${n}`
+        const url = `https://api.themoviedb.org/3/movie/top_rated?api_key=${API_KEY}&language=en-US&page=${n}`
 
         fetch(url)
             .then(data => data.json())
@@ -24,13 +24,25 @@ class Header extends React.Component {
 
     }
 
+    navToDetail = (e) => {
+        try {
+            this.props.navigation.navigate('Top', {
+                title: e.title,
+                movieTitle: e.title,
+                movieImage: e.poster_path,
+                overview: e.overview,
+                release_date: e.release_date,
+                rating: e.vote_average,
+                totalVotes: e.vote_count
+            })   
+        } catch(err) {
+            console.log('err: ', err)
+        }
+    }
+
     render() {
         return (
             <>
-                <View style={styles.headerView}>
-                    <Text style={styles.headerText}>Movies+</Text>
-                </View>
-
                 <Text style={{color: '#fff', fontSize: 30, fontWeight: 'bold', paddingLeft: 10, paddingTop: 10}}>Top Rated</Text>
                 <View style={styles.headerMovieData}>
                     {this.state.results.slice(0, 1).map((result, i) => {
@@ -43,9 +55,9 @@ class Header extends React.Component {
                                     <View style={{backgroundColor: '#0d0d0d', width: 120, borderRadius: 50, alignSelf: 'flex-end', marginTop: -43, paddingLeft: 5, paddingRight: 5}}>
                                         <Button 
                                             color='#fff'
-                                            title='View More' 
-                                        >
-                                        </Button>
+                                            title='View More'
+                                            onPress={() => this.navToDetail(result)}
+                                        />
                                     </View>
                                 </View>
                             </View>
@@ -58,20 +70,6 @@ class Header extends React.Component {
 }
 
 const styles = StyleSheet.create({
-    headerView: {
-        backgroundColor: '#232323',
-        height: 45,
-        display: 'flex',
-        justifyContent: 'center',
-    },
-    headerText: {
-        color: '#F2505D',
-        fontSize: 25,
-        fontWeight: '600',
-        letterSpacing: .5,
-        fontFamily: 'helvetica',
-        textAlign: 'center'
-    },
     headerMovieData: {
         backgroundColor: '#F2505D',
         margin: 10,
