@@ -32,6 +32,7 @@ import AllNowPlaying from './components/AllNowPlaying'
 //BOTTOM TABS
 import PeopleScreen from './components/BottomTabs/PeopleTab/PeopleScreen'
 import SearchScreen from './components/BottomTabs/SearchTab/Search'
+import ProfileScreen from './components/BottomTabs/ProfileTab/Profile'
 
 class HomeScreen extends React.Component {
 
@@ -139,23 +140,30 @@ const AppNavigation = createStackNavigator(
 
 const getTabBarIcon = (navigation, tintColor) => {
   const { routeName } = navigation.state
-  let iconName
+  let iconName, iconSize
   if (routeName === 'Home') {
     iconName = 'ios-home'
+    iconSize = 23
   } else if (routeName === 'Search') {
     iconName = 'ios-search'
+    iconSize = 25
   } else if (routeName === 'People') {
     iconName = 'ios-people'
+    iconSize = 25
+  } else if (routeName === 'You') {
+    iconName = 'ios-contact'
+    iconSize = 25
   }
 
-  return <Icon type='ionicon' name={iconName} size={25} color={tintColor} />
+  return <Icon type='ionicon' name={iconName} size={iconSize} color={tintColor} />
 }
 
 const TabNavigator = createBottomTabNavigator(
   {
     Home: AppNavigation,
     Search: SearchScreen,
-    People: PeopleScreen
+    People: PeopleScreen,
+    You: ProfileScreen
   },
   {
     defaultNavigationOptions: ({ navigation }) => ({
