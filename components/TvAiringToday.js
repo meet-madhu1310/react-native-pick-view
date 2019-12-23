@@ -1,6 +1,8 @@
 import React from 'react'
 import { View, Text, Image, StyleSheet } from 'react-native'
 
+import BuildConfig from 'react-native-build-config'
+
 class TvAiringToday extends React.Component {
 
     state = {
@@ -8,8 +10,9 @@ class TvAiringToday extends React.Component {
     }
 
     componentDidMount = async() => {
-        const API_KEY = 'API_KEY'
-        const url = `https://api.themoviedb.org/3/tv/airing_today?api_key=${API_KEY}&language=en`
+        const API_KEY = BuildConfig.ENV[0]
+        const BASE_URL = BuildConfig.ENV[1]
+        const url = `${BASE_URL}tv/airing_today?api_key=${API_KEY}&language=en`
 
         fetch(url)
             .then(data => data.json())

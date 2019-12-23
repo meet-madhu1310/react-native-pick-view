@@ -1,6 +1,8 @@
 import React from 'react'
 import { View, Text, StyleSheet, FlatList, Image } from 'react-native'
 
+import BuildConfig from 'react-native-build-config'
+
 class NowPlaying extends React.Component {
 
     state = {
@@ -9,8 +11,9 @@ class NowPlaying extends React.Component {
 
     componentDidMount = async() => {
 
-        const API_KEY = 'API_KEY'
-        const url = `https://api.themoviedb.org/3/movie/now_playing?api_key=${API_KEY}&language=en`
+        const API_KEY = BuildConfig.ENV[0]
+        const BASE_URL = BuildConfig.ENV[1]
+        const url = `${BASE_URL}movie/now_playing?api_key=${API_KEY}&language=en`
 
         fetch(url)
             .then(data => data.json())
@@ -29,7 +32,7 @@ class NowPlaying extends React.Component {
         </View>
     )
 
-    navToAll = (e) => {
+    navToAll = () => {
         try {
             this.props.navigation.navigate('NowAll')
         } catch(err) {
@@ -42,7 +45,7 @@ class NowPlaying extends React.Component {
             <>
                 <View style={styles.textHeaderView}>
                     <Text style={styles.textHeader}>Now Playing</Text>
-                    <Text onPress={() => this.navToAll(this.state.results)} style={styles.subHeadLine}>See all</Text>
+                    <Text onPress={() => this.navToAll()} style={styles.subHeadLine}>See all</Text>
                 </View>
 
                 <View style={styles.moviesList}>

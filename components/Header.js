@@ -1,6 +1,8 @@
 import React from 'react'
 import { View, Text, StyleSheet, Image, Button } from 'react-native'
 
+import BuildConfig from 'react-native-build-config'
+
 class Header extends React.Component {
 
     state = {
@@ -9,10 +11,11 @@ class Header extends React.Component {
 
     componentDidMount = async() => {
         
-        const API_KEY = 'API_KEY'
+        const API_KEY = BuildConfig.ENV[0]
+        const BASE_URL = BuildConfig.ENV[1]
         const n = Math.floor(Math.random() * 10)
 
-        const url = `https://api.themoviedb.org/3/movie/top_rated?api_key=${API_KEY}&language=en-US&page=${n}`
+        const url = `${BASE_URL}movie/top_rated?api_key=${API_KEY}&language=en-US&page=${n}`
 
         fetch(url)
             .then(data => data.json())
